@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深中通道 · 3D 工程可视化展示</title>
+  <meta name="description" content="深中通道桥岛隧工程三维可视化展示，含实时天气数据">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="c"></canvas>
+
+<!-- Header -->
+<header class="hdr">
+  <div class="hdr-brand">
+    <h1>深中通道</h1>
+    <small>Shenzhen–Zhongshan Link · 3D Engineering Visualization</small>
+  </div>
+  <div class="hdr-weather" id="weather">
+    <span class="w-loading">获取天气中…</span>
+  </div>
+  <div class="hdr-authors">
+    <small>GROUP AUTHORS</small>
+    <strong>张文娜 · 田杨 · 张梦晴</strong>
+  </div>
+</header>
+
+<button class="panel-toggle left" id="sideToggle" aria-label="收起左侧面板">收起面板</button>
+
+<!-- Left sidebar -->
+<aside class="side">
+  <nav class="nav">
+    <button class="nav-btn active" data-view="overview"><i>◎</i><span>总览</span></button>
+    <button class="nav-btn" data-view="bridge"><i>⌒</i><span>桥梁</span></button>
+    <button class="nav-btn" data-view="island"><i>◆</i><span>人工岛</span></button>
+    <button class="nav-btn" data-view="tunnel"><i>▬</i><span>隧道</span></button>
+    <button class="nav-btn" data-view="interchange"><i>✦</i><span>互通</span></button>
+  </nav>
+  <div class="ctrl">
+    <label class="sw"><input type="checkbox" id="labels" checked><span></span>标签</label>
+    <label class="sw"><input type="checkbox" id="route" checked><span></span>路径</label>
+    <label class="sw"><input type="checkbox" id="orbit"><span></span>巡航</label>
+    <label class="sw"><input type="checkbox" id="wire"><span></span>线框</label>
+  </div>
+  <div class="legend">
+    <div class="lg"><i style="background:#5ba8e6"></i>桥梁 Bridge</div>
+    <div class="lg"><i style="background:#50c9b8"></i>人工岛 Island</div>
+    <div class="lg"><i style="background:#8594b5"></i>隧道 Tunnel</div>
+    <div class="lg"><i style="background:#6ab889"></i>互通 Interchange</div>
+  </div>
+</aside>
+
+<!-- Right data panel -->
+<aside class="data" id="dataPanel">
+  <div class="data-head">
+    <h2 id="dataTitle">工程概况</h2>
+    <button id="dataClose">✕</button>
+  </div>
+  <div class="data-body" id="dataBody"></div>
+</aside>
+
+<!-- Bottom stats -->
+<footer class="stats">
+  <div class="st"><b data-to="24">0</b><small>km</small><em>全长 Total Length</em></div>
+  <div class="st"><b data-to="270">0</b><small>m</small><em>主塔高 Tower Height</em></div>
+  <div class="st"><b data-to="1666" data-comma>0</b><small>m</small><em>主跨 Main Span</em></div>
+  <div class="st"><b data-to="6.845" data-dec="3">0</b><small>km</small><em>隧道 Tunnel Length</em></div>
+  <div class="st"><b data-to="100">0</b><small>km/h</small><em>设计时速 Design Speed</em></div>
+  <div class="st"><b data-to="8">0</b><small>车道</small><em>双向通行 Dual Direction</em></div>
+</footer>
+
+<!-- Help -->
+<div class="help">
+  <span>?</span>
+  <div class="help-tip">左键旋转 · 滚轮缩放 · 右键平移 · 双击复位</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
