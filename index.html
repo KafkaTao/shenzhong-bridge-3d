@@ -51,6 +51,22 @@
   </div>
 </aside>
 
+<button class="mobile-ctrl-toggle" id="mobileCtrlToggle" aria-label="打开移动端控制面板">控制</button>
+
+<aside class="mobile-ctrl" id="mobileCtrlPanel" aria-hidden="true">
+  <div class="mobile-ctrl-head">
+    <h3>视图控制</h3>
+    <button id="mobileCtrlClose" aria-label="关闭移动端控制面板">✕</button>
+  </div>
+  <div class="mobile-ctrl-body">
+    <label class="sw"><input type="checkbox" id="labelsMobile" checked><span></span>标签</label>
+    <label class="sw"><input type="checkbox" id="routeMobile" checked><span></span>路径</label>
+    <label class="sw"><input type="checkbox" id="orbitMobile"><span></span>巡航</label>
+    <label class="sw"><input type="checkbox" id="wireMobile"><span></span>线框</label>
+  </div>
+</aside>
+<div class="mobile-ctrl-backdrop" id="mobileCtrlBackdrop" hidden></div>
+
 <!-- Right data panel -->
 <aside class="data" id="dataPanel">
   <div class="data-head">

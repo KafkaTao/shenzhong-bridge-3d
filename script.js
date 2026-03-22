@@ -607,12 +607,46 @@ const dataTitle = document.getElementById('dataTitle');
 const dataBody = document.getElementById('dataBody');
 const sidePanel = document.querySelector('.side');
 const sideToggle = document.getElementById('sideToggle');
+const mobileCtrlToggle = document.getElementById('mobileCtrlToggle');
+const mobileCtrlPanel = document.getElementById('mobileCtrlPanel');
+const mobileCtrlClose = document.getElementById('mobileCtrlClose');
+const mobileCtrlBackdrop = document.getElementById('mobileCtrlBackdrop');
+const labelsInput = document.getElementById('labels');
+const routeInput = document.getElementById('route');
+const orbitInput = document.getElementById('orbit');
+const wireInput = document.getElementById('wire');
+const labelsMobileInput = document.getElementById('labelsMobile');
+const routeMobileInput = document.getElementById('routeMobile');
+const orbitMobileInput = document.getElementById('orbitMobile');
+const wireMobileInput = document.getElementById('wireMobile');
 
 function setSideCollapsed(collapsed) {
   sidePanel.classList.toggle('collapsed', collapsed);
   sideToggle.classList.toggle('collapsed', collapsed);
   sideToggle.textContent = collapsed ? '展开面板' : '收起面板';
   sideToggle.setAttribute('aria-label', collapsed ? '展开左侧面板' : '收起左侧面板');
+}
+
+function syncControlInputs() {
+  labelsMobileInput.checked = labelsInput.checked;
+  routeMobileInput.checked = routeInput.checked;
+  orbitMobileInput.checked = orbitInput.checked;
+  wireMobileInput.checked = wireInput.checked;
+}
+
+function setMobileCtrlOpen(open) {
+  mobileCtrlPanel.classList.toggle('open', open);
+  mobileCtrlPanel.setAttribute('aria-hidden', open ? 'false' : 'true');
+  mobileCtrlBackdrop.hidden = !open;
+}
+
+function bindMirroredCheckbox(source, target) {
+  source.addEventListener('change', () => {
+    if (target.checked !== source.checked) {
+      target.checked = source.checked;
+      target.dispatchEvent(new Event('change', { bubbles: true }));
+    }
+  });
 }
 
 function showData(view) {
@@ -635,21 +669,37 @@ sideToggle.addEventListener('click', () => {
   setSideCollapsed(!sidePanel.classList.contains('collapsed'));
 });
 
-document.getElementById('labels').addEventListener('change', (event) => {
+mobileCtrlToggle.addEventListener('click', () => {
+  syncControlInputs();
+  setMobileCtrlOpen(!mobileCtrlPanel.classList.contains('open'));
+});
+mobileCtrlClose.addEventListener('click', () => setMobileCtrlOpen(false));
+mobileCtrlBackdrop.addEventListener('click', () => setMobileCtrlOpen(false));
+
+bindMirroredCheckbox(labelsInput, labelsMobileInput);
+bindMirroredCheckbox(routeInput, routeMobileInput);
+bindMirroredCheckbox(orbitInput, orbitMobileInput);
+bindMirroredCheckbox(wireInput, wireMobileInput);
+bindMirroredCheckbox(labelsMobileInput, labelsInput);
+bindMirroredCheckbox(routeMobileInput, routeInput);
+bindMirroredCheckbox(orbitMobileInput, orbitInput);
+bindMirroredCheckbox(wireMobileInput, wireInput);
+
+labelsInput.addEventListener('change', (event) => {
   state.labels = event.target.checked;
 });
 
-document.getElementById('route').addEventListener('change', (event) => {
+routeInput.addEventListener('change', (event) => {
   state.route = event.target.checked;
   routeLine.visible = state.route;
   car.visible = state.route;
 });
 
-document.getElementById('orbit').addEventListener('change', (event) => {
+orbitInput.addEventListener('change', (event) => {
   state.orbit = event.target.checked;
 });
 
-document.getElementById('wire').addEventListener('change', (event) => {
+wireInput.addEventListener('change', (event) => {
   state.wire = event.target.checked;
   toggleMaterials.forEach((material) => { material.wireframe = state.wire; });
   water.visible = !state.wire;
